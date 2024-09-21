@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
 from livekit.agents.voice_assistant import VoiceAssistant
 
-from livekit.plugins import openai, silero, deepgram
+from livekit.plugins import openai, silero
+from api import AssistantFuc
+import os
+
 
 load_dotenv()
 
@@ -17,13 +20,15 @@ async def entrypoint(ctx: JobContext):
         ),
     )
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
+    fnc_ctx = AssistantFuc()
 
     assistant = VoiceAssistant(
         vad = silero.VAD.load(),
-        stt=deepgram.STT(),
-        llm=openai.LLM(model="phi3", base_url="http://localhost:11434/"),
+        stt=openai.STT(),
+        llm=openai.LLM(model="gpt-3.5-turbo"),
         tts= openai.TTS(),
-        chat_ctx= intial_ctx
+        chat_ctx= intial_ctx,
+        fnc_ctx = fnc_ctx
 
     )
     assistant.start(ctx.room)
