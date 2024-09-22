@@ -88,8 +88,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
-
-- LiveKit for providing the real-time communication framework
-- OpenAI for their powerful language models and APIs
-- Silero for the Voice Activity Detection model
