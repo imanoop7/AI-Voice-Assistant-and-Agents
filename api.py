@@ -29,8 +29,22 @@ class AssistantFuc(llm.FunctionContext):
         }
 
     @llm.ai_callable(description="get the temprature in a specific room")
-    def get_temprature(self, zone:Annotated[Zone, llm.TypeInfo(description="The specific zone")]):
+    def get_temperature(self, zone:Annotated[Zone, llm.TypeInfo(description="The specific zone")]):
         logger.info("get temp- zone %s", zone)
-        temp = self._temprature[Zone(zone)]
+        temp = self._temperature[Zone(zone)]
         return f"The  temprature in the {zone} is {temp}C"
+    
+
+    @llm.ai_callable(description="set temprature in a specific room")
+    def set_temperature(
+        self, 
+        zone: Annotated[Zone, llm.TypeInfo(description= "The specific zone")],
+        temp: Annotated[int, llm.TypeInfo(description= " the temperature to set")],
+    ):
+        logger.info("set temo - zone %s", zone, temp)
+        self._temperature[Zone(zone)] = temp
+        return f"the temperature in the {zone} is now {temp}"
+    
+
+    
 
